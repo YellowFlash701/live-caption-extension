@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Meet Live Translate</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        width: 300px;
+        margin: 0;
+        padding: 16px;
+        background: #0f172a;
+        color: #f1f5f9;
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0 0 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22c55e;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        margin: 12px 0 4px;
+        color: #94a3b8;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #334155;
+        background: #1e293b;
+        color: #f1f5f9;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      button {
+        width: 100%;
+        margin-top: 14px;
+        padding: 9px;
+        border-radius: 6px;
+        border: 0;
+        background: #6366f1;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #4f46e5;
+      }
+      .hint {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 10px;
+        line-height: 1.4;
+      }
+      .status {
+        font-size: 11px;
+        color: #22c55e;
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span class="dot"></span> Meet Live Translate</h1>
+
+    <label for="enabled">Translation</label>
+    <div class="row">
+      <input type="checkbox" id="enabled" style="width:auto" />
+      <span style="font-size:12px">Enable overlay in Meet</span>
+    </div>
+
+    <label for="target">Translate captions to</label>
+    <select id="target">
+      <option value="English">English</option>
+      <option value="Spanish">Spanish</option>
+      <option value="French">French</option>
+      <option value="German">German</option>
+      <option value="Italian">Italian</option>
+      <option value="Portuguese">Portuguese</option>
+      <option value="Dutch">Dutch</option>
+      <option value="Polish">Polish</option>
+      <option value="Turkish">Turkish</option>
+      <option value="Arabic">Arabic</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Chinese (Simplified)">Chinese (Simplified)</option>
+      <option value="Japanese">Japanese</option>
+      <option value="Korean">Korean</option>
+      <option value="Vietnamese">Vietnamese</option>
+      <option value="Thai">Thai</option>
+      <option value="Indonesian">Indonesian</option>
+      <option value="Russian">Russian</option>
+      <option value="Ukrainian">Ukrainian</option>
+    </select>
+
+    <label for="model">Mistral model</label>
+    <select id="model">
+      <option value="mistral-small-latest">mistral-small-latest (fast)</option>
+      <option value="mistral-large-latest">mistral-large-latest (accurate)</option>
+      <option value="open-mistral-nemo">open-mistral-nemo</option>
+    </select>
+
+    <label for="apikey">Mistral API key</label>
+    <input type="password" id="apikey" placeholder="sk-..." />
+
+    <div class="row">
+      <input type="checkbox" id="answerMode" style="width:auto" />
+      <span style="font-size:12px">Suggest Japanese answer with furigana</span>
+    </div>
+
+    <label for="answerContext">Answer context / persona</label>
+    <input type="text" id="answerContext" placeholder="e.g. I am a software engineer in a job interview." />
+
+    <label for="additionalInfo">Additional info (CV, projects, facts about you)</label>
+    <textarea id="additionalInfo" rows="5" placeholder="Paste your résumé bullet points, key projects, preferences, or any facts the AI should use when answering." style="width:100%;padding:8px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#f1f5f9;font-size:12px;box-sizing:border-box;font-family:inherit;resize:vertical;"></textarea>
+
+    <label for="selfName">Your display name in Meet (to skip your own captions)</label>
+    <input type="text" id="selfName" placeholder="e.g. Hyuga Mori (or 'You')" />
+
+    <label for="historyTurns">Meeting history turns to include</label>
+    <input type="number" id="historyTurns" min="1" max="50" step="1" />
+
+    <label for="finalizeMs">Silence gap to finalize an utterance (ms)</label>
+    <input type="number" id="finalizeMs" min="400" max="6000" step="100" />
+
+    <button id="save">Save</button>
+    <div class="status" id="status"></div>
+    <p class="hint" style="margin-top:6px">Tip: drag the overlay in Meet from its top bar to move it anywhere on screen.</p>
+
+    <p class="hint">
+      Turn on Meet's built-in captions (CC button) — this extension reads them,
+      translates them in real time with Mistral, and shows the translation as
+      an overlay inside the call.
+    </p>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
